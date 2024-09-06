@@ -1,3 +1,15 @@
-# ProjectForDataEngineer1
-Project For Data Engineer
-# Start ETL with AWS  
+# Data Engineer Project
+Start ETL with AWS 
+
+
+
+
+## Roadmap
+
+- Create a project
+
+- IAM  
+
+- Deploy project
+
+
