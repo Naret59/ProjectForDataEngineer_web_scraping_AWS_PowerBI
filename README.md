@@ -12,4 +12,4 @@ Start ETL with AWS
 
 - Deploy project
 
--Test
+- Test
