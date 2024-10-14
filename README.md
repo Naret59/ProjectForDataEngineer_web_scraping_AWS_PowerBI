@@ -85,7 +85,9 @@ Default output format [None]: json
 ![image](https://github.com/user-attachments/assets/e1041581-e6fd-47f5-9ed4-e291e65b4b4e)
 
 ## Step 2 แปลงไฟล์ CSV เป็น Parquet file โดยใช้ AWS Glue 
-โดยขั้นตอนนี้เราจะใช้ AWS Crawlers ดึงข้อมูลตจา่ก S3 ไปไว้ที่ Database ของ AWS Glue โดยใช้ Visual ETL ซึ่งเป็นเครื่องมือสำหรับการวร้าง ETL job บน AWS โดยสามาร Run ทั้งแบบ Visual , Notebook และ Script แต่ใน Project นี้เราจะใช้ Visual ETL
+โดยขั้นตอนนี้เราจะใช้ AWS Crawlers ดึงข้อมูลตจา่ก S3 ไปไว้ที่ Database ของ AWS Glue จากนั้นใช้ AWS Athena ตรวจสอบข้อมูลใน S3 ว่าถูกต้องหรือไม่ ![image](https://github.com/user-attachments/assets/d5dc0079-989b-404c-ae4b-8f76ff93d66d)
+
+จากนั้นใช้ Visual ETL ซึ่งเป็นเครื่องมือสำหรับการวร้าง ETL job บน AWS โดยสามาร Run ทั้งแบบ Visual , Notebook และ Script แต่ใน Project นี้เราจะใช้ Visual ETL
 ![image](https://github.com/user-attachments/assets/ed00f891-9431-4b40-8632-0079c707bc5f)
 1.Box แรกจะเป็นการนำเข้าข้อมูลจาก Database ที่อยู่บน AWS Glue 
 2.Box ที่สองจะเป็น Box สำหรับ Transform ข้อมูล 
