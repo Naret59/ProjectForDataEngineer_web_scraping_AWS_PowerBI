@@ -25,7 +25,7 @@
 ตัวอย่างหน้าเว็บต้องการจะทำ Web Scraping 
 ![image](https://github.com/user-attachments/assets/2248ee6e-a014-49b7-8591-78c76ae0f2a3)
 
-``` python
+```python
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -57,7 +57,7 @@ print("Data saved to Companies.csv")
 ![image](https://github.com/user-attachments/assets/f494df2f-de4c-4079-bb54-bbc18edaeae2)
 จากนั้นย้าย code ไปไว้บน Cloud โดยครั้งแรกผมตั้งใจจะใช้ AWS Lambda เพราะเป็น Severless จะได้ช่วยในเรื่องของการลด Cost ในการใช้จ่ายแต่ด้วยความที่ Lambda ไม่เหมาะแก่การใช้ Selenium เพราะต้องทำการติดตั้ง chromedriver ด้วยและอีกทั้งเรายังใช้ library ที่เยอะด้วยทำให้ติดปัญหาของ Lambda Layer ที่พบว่า library Selenium มีขนาดที่ใหญ่เกินกว่าที่กำหนด ผมเลยเลือกใช้เป็น EC2 แทนเพราะสะดวกและง่ายกว่าสำหรับการทำงานขอ code ชุดนี้ 
 จากนั้นผมก็เพิ่ม Code ส่วนที่เป็น Headless ของ chromedriver เข้าไปเพราะ ตอนที่ Run บนเครื่องจะพบว่าต้องมีการเปิด Google Chrome ทุกครั้งที่ Run code ซึ่งบน Cloud ไม่สามารถทำได้โดยใช้ code ส่วนนี้ครับ 
-``` python
+```python
 # ตั้งค่าให้ Chrome ทำงานในโหมด headless
 chrome_options = Options()
 chrome_options.add_argument("--headless")
