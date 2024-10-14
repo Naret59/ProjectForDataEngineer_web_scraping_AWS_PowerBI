@@ -1,4 +1,4 @@
-# Data Engineer Project
+![image](https://github.com/user-attachments/assets/60f04ff2-b289-4224-9fdb-022510254909)# Data Engineer Project
 การ Web Scraping และจัดเก็บข้อมูลลงใน S3 เพื่อสร้าง Data pipline โดยการนำข้อมูล SET100 จาก https://www.set.or.th/th/home นำสร้าง Data pipline เพื่อสามารถให้นำมาใช้ได้ใน Power Bi เพื่อทำการวิเคราะห์ข้อมูล
 
 <p align="center">
@@ -81,6 +81,45 @@ Default output format [None]: json
 จากนั้นทำการ Create User 
 ![image](https://github.com/user-attachments/assets/b13201b0-881d-4ff3-aafc-0e06832b11b8)
 จากนั้นนำ Access key และ Secret access key มากกรอกใน aws configure ตอนนี้เราสามารถนำ Code ต่อไปนี้ในการ Run เพื่อทำงาน Web Scraping ได้เลยครับ โดยจะเพิ่มในในส่วนของ bucket ของ S3 ที่เราต้องการจัดเก็บ [Web_scraping.py](https://github.com/Naret59/ProjectForDataEngineer_web_scraping_AWS_PowerBI/blob/main/Web_scraping.py) 
+เมื่อทำการ Run Code เรียบร้อยจะได้ไฟล์ CSV ไปเก็บไว้ที่ S3 ดังรูปด้านล่าง
+![image](https://github.com/user-attachments/assets/e1041581-e6fd-47f5-9ed4-e291e65b4b4e)
+
+## Step 2 แปลงไฟล์ CSV เป็น Parquet file โดยใช้ AWS Glue 
+โดยขั้นตอนนี้เราจะใช้ AWS Crawlers ดึงข้อมูลตจา่ก S3 ไปไว้ที่ Database ของ AWS Glue โดยใช้ Visual ETL ซึ่งเป็นเครื่องมือสำหรับการวร้าง ETL job บน AWS โดยสามาร Run ทั้งแบบ Visual , Notebook และ Script แต่ใน Project นี้เราจะใช้ Visual ETL
+![image](https://github.com/user-attachments/assets/ed00f891-9431-4b40-8632-0079c707bc5f)
+1.Box แรกจะเป็นการนำเข้าข้อมูลจาก Database ที่อยู่บน AWS Glue 
+2.Box ที่สองจะเป็น Box สำหรับ Transform ข้อมูล 
+3.Box ที่สามจะเป็น Box สำหรับแปลงไฟล์เป็น Parquet file แล้วส่งไปที่ S3 
+ผลลัพธ์ 
+![image](https://github.com/user-attachments/assets/1e785673-8831-44a2-ba56-2dccb2d1aac1)
+
+## Step 3 Get Data จาก S3 ไปใช้ต่อที่ Power BI 
+โดยในที่นี้เราจะใช้ Code [python_srcipt_get_s3.py](https://github.com/Naret59/ProjectForDataEngineer_web_scraping_AWS_PowerBI/blob/main/python_srcipt_get_s3.py) โดยใช้ User เดียวกันกับที่ใช้ configure ที่สร้างจาก IAM โดยเราจะทำการกรอก Access key และ Secret access key 
+```python
+import boto3, os, io
+import pandas as pd 
+
+my_key= '' 
+my_secret= '' 
+
+my_bucket_name = 'set100-naret-input' 
+my_file_path = 'CSV_set100/Companies (1).csv' 
+
+session = boto3.Session(aws_access_key_id=my_key,aws_secret_access_key=my_secret) 
+s3Client = session.client('s3') 
+f = s3Client.get_object(Bucket=my_bucket_name, Key=my_file_path) 
+heart_disease_data = pd.read_csv(io.BytesIO(f['Body'].read()), header=0)
+
+```
+จากนั้นดูผลลัพธ์ 
+![image](https://github.com/user-attachments/assets/32d5c003-d604-4924-be87-b9fa75fb5148)
+จะเห็นว่า เราสามารถโหลด Data จาก S3 มาได้แล้ว เป็นอันจบกระบวนการทำงาน หากต้องการตั้งเวลาสำหรับการดึงข้อมูลทุกๆเช้าเวลา 10.00 ก็สามารถใช้ Service EventBridge ในการทำ Job scheduler ได้ 🙌
+
+
+
+
+
+
 
 
  
