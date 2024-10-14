@@ -1,5 +1,6 @@
 # Data Engineer Project
 การ Web Scraping และจัดเก็บข้อมูลลงใน S3 เพื่อสร้าง Data pipline โดยการนำข้อมูล SET100 จาก https://www.set.or.th/th/home นำสร้าง Data pipline เพื่อสามารถให้นำมาใช้ได้ใน Power Bi เพื่อทำการวิเคราะห์ข้อมูล
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/b596e241-47b1-4c5b-8486-1c78a212c155" alt="Image 1" width="200"/>
   <img src="https://github.com/user-attachments/assets/d30af651-6b91-47c2-a9d2-deaf4a0a9bab" alt="Image 2" width="200"/>
